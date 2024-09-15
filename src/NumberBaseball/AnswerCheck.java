@@ -15,6 +15,40 @@ public class AnswerCheck {
      * -----------------------------------------
      * 각 SBO가 몇개인지 반환해주는 기능을 담당
      */
+    List<Integer> answer;
+    private int scoreStrike, scoreBall, scoreOut;
 
+    public AnswerCheck (GenerateAnswer answer) {
+        this.answer = answer.getAnswer();
+        this.scoreStrike = 0;
+        this.scoreBall = 0;
+        this.scoreOut = 0;
+    }
 
+    public void checkSBO (List<Integer> userAnswer) {
+        int score = 0;
+
+        for (int i = 0; i < userAnswer.size(); i++) {
+            if (this.answer.contains(userAnswer.get(i))) {
+                if (answer.indexOf(userAnswer.get(i)) == i) {
+                    scoreStrike++; // Strike
+                } else {
+                    scoreBall++; // ball
+                }
+            } else {
+                scoreOut++;
+            }
+        }
+    }
+
+    // getter
+    public int getScoreStrike() {
+        return scoreStrike;
+    }
+    public int getScoreBall() {
+        return scoreBall;
+    }
+    public int getScoreOut() {
+        return scoreOut;
+    }
 }
