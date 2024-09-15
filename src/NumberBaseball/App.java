@@ -7,6 +7,10 @@ public class App {
      *
      */
     public static void main(String[] args) {
+        PlayBaseball playGame = new PlayBaseball();
+        playGame.execute();
+
+
 
     }
 }
