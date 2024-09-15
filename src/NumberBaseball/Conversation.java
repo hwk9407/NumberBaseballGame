@@ -28,11 +28,21 @@ public class Conversation {
             }
         }
 
-        sc.close(); // Scanner 닫기
         return userAnswer;
     }
 
-    public void congratulationMessage() {
-        System.out.println("축하합니다! 정답을 맞추셨습니다.");
+    public void sendResult(int strike, int ball, int out) {
+            StringBuilder scoreString = new StringBuilder();
+            if (strike == 3) scoreString.append("정답입니다!");
+            else if (strike > 0) scoreString.append(strike + "스트라이크 ");
+
+            if (ball > 0) scoreString.append(ball + "볼");
+            if (out == 3) {
+                scoreString.setLength(0);
+                scoreString.append("아웃");
+            }
+            scoreString.trimToSize();
+            System.out.println(scoreString);
+            System.out.println();
     }
 }
