@@ -25,6 +25,8 @@ public class Conversation {
             if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr)) { // 입력값 유효한지 검사
                 userAnswer = inputcheck.changeStrToList(inputStr);
                 break;
+            } else {
+                System.out.println("올바르지 않은 입력값입니다.");
             }
         }
 
