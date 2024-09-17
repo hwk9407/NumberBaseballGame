@@ -22,7 +22,7 @@ public class Conversation {
             String inputStr = sc.nextLine();
             InputInvalidCheck inputcheck = new InputInvalidCheck();
 
-            if (inputcheck.checkInvalid(inputStr)) { // 입력값 유효한지 검사
+            if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr)) { // 입력값 유효한지 검사
                 userAnswer = inputcheck.changeStrToList(inputStr);
                 break;
             }
