@@ -32,17 +32,25 @@ public class Conversation {
     }
 
     public void sendResult(int strike, int ball, int out) {
-            StringBuilder scoreString = new StringBuilder();
-            if (strike == 3) scoreString.append("정답입니다!");
-            else if (strike > 0) scoreString.append(strike + "스트라이크 ");
-
-            if (ball > 0) scoreString.append(ball + "볼");
-            if (out == 3) {
-                scoreString.setLength(0);
-                scoreString.append("아웃");
+        StringBuilder scoreString = new StringBuilder();
+        if (strike == 3) {
+            scoreString.append("정답입니다!");
+        } else if (out == 3) {
+            scoreString.setLength(0);
+            scoreString.append("아웃");
+        } else {
+            if (strike > 0) {
+                scoreString.append(strike + "스트라이크 ");
             }
+
+            if (ball > 0) {
+                scoreString.append(ball + "볼");
+            }
+
             scoreString.trimToSize();
-            System.out.println(scoreString);
-            System.out.println();
+        }
+
+        System.out.println(scoreString);
+        System.out.println();
     }
 }
