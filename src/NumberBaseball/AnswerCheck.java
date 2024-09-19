@@ -27,6 +27,7 @@ public class AnswerCheck {
     }
 
     public void checkSBO (List<Integer> userAnswer) {
+        resetSBO();
         scoreCount++;
 
         for (int i = 0; i < userAnswer.size(); i++) {
@@ -40,6 +41,12 @@ public class AnswerCheck {
                 scoreOut++;
             }
         }
+    }
+
+    private void resetSBO () {
+        scoreStrike = 0;
+        scoreBall = 0;
+        scoreOut = 0;
     }
 
     // getter
