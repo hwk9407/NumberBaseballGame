@@ -1,19 +1,21 @@
-package NumberBaseball;
+package numberbaseball;
+
+import numberbaseball.exceptions.UnsupportedDifficultyException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayBaseball {
     /**
-     * NumberBaseball/PlayBaseball.java
+     * numberbaseball/PlayBaseball.java
      * 야구 게임 객체
      * 생성자에 정답생성 객체를 호출
      * 실행 메서드를 통해 게임 진행
      */
-    GameStatistics gameStatistics;
-    
+    private final GameSettings settings;
+
     public PlayBaseball() {
-        this.gameStatistics = new GameStatistics();
+        this.settings = new GameSettings();
     }
 
     public void execute() {
@@ -37,13 +39,24 @@ public class PlayBaseball {
 
             // Strike 3인 경우 break;
             if (answerCheck.getScoreStrike() == 3) {
-                this.gameStatistics.addTryCount(answerCheck.getScoreCount());
+                settings.addTryCount(answerCheck.getScoreCount());
                 break;
             }
         }
     }
 
     public ArrayList<Integer> loadGameStatistics() {
-        return this.gameStatistics.getTryCount();
+        return settings.getTryCount();
+    }
+
+    public void setGameDifficulty(int difficulty) throws UnsupportedDifficultyException {
+        if (difficulty < 3 || difficulty > 5) {
+            throw new UnsupportedDifficultyException();
+        }
+
+        settings.setGameDifficulty(difficulty);
+    }
+    public int getGameDifficulty() {
+        return settings.getGameDifficulty();
     }
 }
