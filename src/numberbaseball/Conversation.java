@@ -12,16 +12,16 @@ public class Conversation {
      */
 
 
-    public List<Integer> inputNumber() {
+    public List<Integer> inputNumber(int difficulty) {
         Scanner sc = new Scanner(System.in);
         List<Integer> userAnswer;
 
-        System.out.println("서로 다른 세 자리의 숫자를 입력해주세요.");
+        System.out.println("서로 다른 " + difficulty + " 자리의 숫자를 입력해주세요.");
         while (true) {
             String inputStr = sc.nextLine();
             InputInvalidCheck inputcheck = new InputInvalidCheck();
 
-            if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr)) { // 입력값 유효한지 검사
+            if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr, difficulty)) { // 입력값 유효한지 검사
                 userAnswer = inputcheck.changeStrToList(inputStr);
                 break;
             }
@@ -30,11 +30,11 @@ public class Conversation {
         return userAnswer;
     }
 
-    public void sendResult(int strike, int ball, int out) {
+    public void sendResult(int strike, int ball, int out, int difficulty) {
         StringBuilder scoreString = new StringBuilder();
-        if (strike == 3) {
+        if (strike == difficulty) {
             scoreString.append("정답입니다!");
-        } else if (out == 3) {
+        } else if (out == difficulty) {
             scoreString.setLength(0);
             scoreString.append("아웃");
         } else {

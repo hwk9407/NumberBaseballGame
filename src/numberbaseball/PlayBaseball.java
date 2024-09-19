@@ -20,7 +20,7 @@ public class PlayBaseball {
 
     public void execute() {
         Conversation conversation = new Conversation();
-        GenerateAnswer correctAnswer = new GenerateAnswer();
+        GenerateAnswer correctAnswer = new GenerateAnswer(settings.getGameDifficulty());
         AnswerCheck answerCheck = new AnswerCheck(correctAnswer);
 /*
         // 정답 테스트용
@@ -31,14 +31,14 @@ public class PlayBaseball {
         while (true) {
 
             // 사용자 입력받기 실행
-            List<Integer> userAnswer = conversation.inputNumber();
+            List<Integer> userAnswer = conversation.inputNumber(settings.getGameDifficulty());
             answerCheck.checkSBO(userAnswer);
 
             // 결과 출력
-            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut());
+            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut(), settings.getGameDifficulty());
 
-            // Strike 3인 경우 break;
-            if (answerCheck.getScoreStrike() == 3) {
+            // Strike n인 경우 break;
+            if (answerCheck.getScoreStrike() == settings.getGameDifficulty()) {
                 settings.addTryCount(answerCheck.getScoreCount());
                 break;
             }
@@ -55,6 +55,7 @@ public class PlayBaseball {
         }
 
         settings.setGameDifficulty(difficulty);
+        System.out.println("게임 난이도를 " + difficulty + "로 설정 하였습니다. \n");
     }
     public int getGameDifficulty() {
         return settings.getGameDifficulty();
