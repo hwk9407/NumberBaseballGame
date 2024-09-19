@@ -15,7 +15,7 @@ public class Conversation {
 
     public List<Integer> inputNumber() {
         Scanner sc = new Scanner(System.in);
-        List<Integer> userAnswer = new ArrayList<Integer>();
+        List<Integer> userAnswer;
 
         System.out.println("서로 다른 세 자리의 숫자를 입력해주세요.");
         while (true) {
@@ -42,11 +42,11 @@ public class Conversation {
             scoreString.append("아웃");
         } else {
             if (strike > 0) {
-                scoreString.append(strike + "스트라이크 ");
+                scoreString.append(strike).append("스트라이크 ");
             }
 
             if (ball > 0) {
-                scoreString.append(ball + "볼");
+                scoreString.append(ball).append("볼");
             }
 
             scoreString.trimToSize();

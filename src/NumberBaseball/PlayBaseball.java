@@ -1,5 +1,6 @@
 package NumberBaseball;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayBaseball {
@@ -9,15 +10,16 @@ public class PlayBaseball {
      * 생성자에 정답생성 객체를 호출
      * 실행 메서드를 통해 게임 진행
      */
+    GameStatistics gameStatistics;
     
     public PlayBaseball() {
-        System.out.println("< 숫자 야구 게임 > 을 시작하겠습니다.");
+        this.gameStatistics = new GameStatistics();
     }
 
     public void execute() {
         Conversation conversation = new Conversation();
-
         GenerateAnswer correctAnswer = new GenerateAnswer();
+        AnswerCheck answerCheck = new AnswerCheck(correctAnswer);
 /*
         // 정답 테스트용
         System.out.println("정답은 : " + correctAnswer.getAnswer());
@@ -25,7 +27,6 @@ public class PlayBaseball {
 
 
         while (true) {
-            AnswerCheck answerCheck = new AnswerCheck(correctAnswer);
 
             // 사용자 입력받기 실행
             List<Integer> userAnswer = conversation.inputNumber();
@@ -35,10 +36,14 @@ public class PlayBaseball {
             conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut());
 
             // Strike 3인 경우 break;
-            if (answerCheck.getScoreStrike() == 3) break;
+            if (answerCheck.getScoreStrike() == 3) {
+                this.gameStatistics.addTryCount(answerCheck.getScoreCount());
+                break;
+            }
         }
+    }
 
-
-
+    public ArrayList<Integer> loadGameStatistics() {
+        return this.gameStatistics.getTryCount();
     }
 }
