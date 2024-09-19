@@ -55,7 +55,6 @@ public class PlayBaseball {
         }
 
         settings.setGameDifficulty(difficulty);
-        System.out.println("게임 난이도를 " + difficulty + "로 설정 하였습니다. \n");
     }
     public int getGameDifficulty() {
         return settings.getGameDifficulty();

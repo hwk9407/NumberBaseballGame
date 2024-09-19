@@ -47,16 +47,16 @@ public class GameMenu {
 
             // 자리수 설정하기
             if (optionNumber == 0) {
-                System.out.println("설정하고자 하는 자리수를 입력하세요.");
-
-                try {
-                    int gameDifficulty = inputNumber();
-                    playGame.setGameDifficulty(gameDifficulty);
-                } catch (InvalidNumberInputException e) {
-                    System.out.println(e.getMessage());
-                    continue;
-                } catch (UnsupportedDifficultyException e) {
-                    System.out.println(e.getMessage());
+                while (true) {
+                    System.out.println("설정하고자 하는 자리수를 입력하세요.");
+                    try {
+                        int gameDifficulty = inputNumber();
+                        playGame.setGameDifficulty(gameDifficulty);
+                        System.out.println("게임 난이도를 " + gameDifficulty + "로 설정 하였습니다. \n");
+                        break;
+                    } catch (InvalidNumberInputException | UnsupportedDifficultyException e) { // 숫자 외 입력할 때 | 3 ~ 5 범위 외 난이도 설정하려 할 때 예외 처리
+                        System.out.println(e.getMessage());
+                    }
                 }
             // 시작하기
             } else if (optionNumber == 1) {
