@@ -1,12 +1,11 @@
-package NumberBaseball;
+package numberbaseball;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Conversation {
     /**
-     * NumberBaseball/Conversation.java
+     * numberbaseball/Conversation.java
      * 사용자 입력을 받고 출력하고, 게임 진행을 하는 클래스
      * 올바르게 입력할 때까지 계속해서 진행하도록 반복문 사용
      * 정답을 맞출시 축하메시지와 함께 종료
@@ -25,8 +24,6 @@ public class Conversation {
             if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr)) { // 입력값 유효한지 검사
                 userAnswer = inputcheck.changeStrToList(inputStr);
                 break;
-            } else {
-                System.out.println("올바르지 않은 입력값입니다.");
             }
         }
 

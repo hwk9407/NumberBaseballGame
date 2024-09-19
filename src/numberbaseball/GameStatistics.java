@@ -1,10 +1,10 @@
-package NumberBaseball;
+package numberbaseball;
 
 import java.util.ArrayList;
 
 public class GameStatistics {
     /**
-     * NumberBaseball/GameStatistics.java
+     * numberbaseball/GameStatistics.java
      * 게임 시도 횟수 기록을 관리하는 클래스
      */
     private ArrayList<Integer> tryCount;

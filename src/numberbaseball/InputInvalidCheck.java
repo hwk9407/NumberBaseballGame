@@ -1,4 +1,4 @@
-package NumberBaseball;
+package numberbaseball;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class InputInvalidCheck {
     /**
-     * NumberBaseball/InputInvalidCheck.java
+     * numberbaseball/InputInvalidCheck.java
      * 전달 받은 입력값이 조건에 맞게 잘 입력했는지 검사하는 역할.
      * 조건1. 순수 숫자만 있어야 함. (ex. 1a2, abc)
      * 조건2. 세 개의 숫자여야 함. (ex. 1234, 12)
