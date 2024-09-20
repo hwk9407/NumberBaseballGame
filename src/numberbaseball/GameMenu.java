@@ -61,12 +61,12 @@ public class GameMenu {
             // 시작하기
             } else if (optionNumber == 1) {
                 System.out.println("< 숫자 야구 게임 > 을 시작하겠습니다.");
-                this.playGame.execute();
+                playGame.execute();
             // 게임 기록 보기
             } else if (optionNumber == 2) {
                 System.out.println("\n< 게임 기록 보기 >");
 
-                ArrayList<Integer> tryCount = this.playGame.loadGameStatistics();
+                ArrayList<Integer> tryCount = playGame.loadGameStatistics();
 
                 if (tryCount.size() == 0) {
                     System.out.println("기록 없음\n");
