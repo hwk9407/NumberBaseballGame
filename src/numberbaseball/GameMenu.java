@@ -66,7 +66,9 @@ public class GameMenu {
             } else if (optionNumber == 2) {
                 System.out.println("\n< 게임 기록 보기 >");
 
-                ArrayList<Integer> tryCount = playGame.loadGameStatistics();
+                GameStatistics statistics = playGame.loadGameStatistics();
+                ArrayList<Integer> tryCount = statistics.getTryCount();
+                ArrayList<Integer> tryDifficulty = statistics.getTryDifficulty();
 
                 if (tryCount.size() == 0) {
                     System.out.println("기록 없음\n");
@@ -74,7 +76,7 @@ public class GameMenu {
                 }
 
                 for (int i = 0; i < tryCount.size(); i++) {
-                    System.out.println((i + 1) + "번째 게임 : 시도 횟수 - " + tryCount.get(i));
+                    System.out.println((i + 1) + "번째 게임 (난이도 " + tryDifficulty.get(i) + ") : 시도 횟수 - " + tryCount.get(i));
                 }
                 System.out.println();
 

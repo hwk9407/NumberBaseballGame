@@ -13,14 +13,16 @@ public class PlayBaseball {
      * 실행 메서드를 통해 게임 진행
      */
     private final GameSettings settings;
+    private GameStatistics statistics;
 
     public PlayBaseball() {
         this.settings = new GameSettings();
+        this.statistics = new GameStatistics();
     }
 
     public void execute() {
         Conversation conversation = new Conversation();
-        GenerateAnswer correctAnswer = new GenerateAnswer(settings.getGameDifficulty());
+        GenerateAnswer correctAnswer = new GenerateAnswer(settings.getDifficulty());
         AnswerCheck answerCheck = new AnswerCheck(correctAnswer);
 /*
         // 정답 테스트용
@@ -31,22 +33,23 @@ public class PlayBaseball {
         while (true) {
 
             // 사용자 입력받기 실행
-            List<Integer> userAnswer = conversation.inputNumber(settings.getGameDifficulty());
+            List<Integer> userAnswer = conversation.inputNumber(settings.getDifficulty());
             answerCheck.checkSBO(userAnswer);
 
             // 결과 출력
-            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut(), settings.getGameDifficulty());
+            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut(), settings.getDifficulty());
 
-            // Strike n인 경우 break;
-            if (answerCheck.getScoreStrike() == settings.getGameDifficulty()) {
-                settings.addTryCount(answerCheck.getScoreCount());
+            // Strike n인 경우 정답이므로 탈출
+            if (answerCheck.getScoreStrike() == settings.getDifficulty()) {
+                // 정답일 경우에 게임 통계 GameStatistics 객체에 현재 게임의 난이도와 기록을 추가
+                statistics.addTry(answerCheck.getScoreCount(), settings.getDifficulty());
                 break;
             }
         }
     }
 
-    public ArrayList<Integer> loadGameStatistics() {
-        return settings.getTryCount();
+    public GameStatistics loadGameStatistics() {
+        return statistics;
     }
 
     public void setGameDifficulty(int difficulty) throws UnsupportedDifficultyException {
@@ -54,9 +57,9 @@ public class PlayBaseball {
             throw new UnsupportedDifficultyException();
         }
 
-        settings.setGameDifficulty(difficulty);
+        settings.setDifficulty(difficulty);
     }
     public int getGameDifficulty() {
-        return settings.getGameDifficulty();
+        return settings.getDifficulty();
     }
 }
