@@ -1,4 +1,4 @@
-package numberbaseball;
+package numberbaseball.input;
 
 import numberbaseball.exceptions.DecimalFormatException;
 import numberbaseball.exceptions.DoubleInputException;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class InputInvalidCheck {
     /**
-     * numberbaseball/InputInvalidCheck.java
+     * numberbaseball.input.InputInvalidCheck.java
      * 전달 받은 입력값이 조건에 맞게 잘 입력했는지 검사하는 역할.
      * 조건1. 순수 숫자만 있어야 함. (ex. 1a2, abc)
      * 조건2. n 개의 숫자여야 함. (ex. n = 4 : 1234, n = 5 : 12345)

@@ -1,10 +1,12 @@
-package numberbaseball;
+package numberbaseball.gameplay;
+
+import numberbaseball.settings.GenerateAnswer;
 
 import java.util.List;
 
 public class AnswerCheck {
     /**
-     * numberbaseball/AnswerCheck.java
+     * numberbaseball.gameplay.AnswerCheck.java
      * 전달 받은 입력값을 검사하는 역할.
      * 전달 받은 입력값과 GenerateAnswer에 있는 정답과 비교하여
      * -----------------------------------------

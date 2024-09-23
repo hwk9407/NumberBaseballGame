@@ -1,4 +1,4 @@
-package numberbaseball;
+package numberbaseball.settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GenerateAnswer {
     /**
-     * numberbaseball/GenerateAnswer.java
+     * numberbaseball.settings.GenerateAnswer.java
      * 랜덤한 N 자리의 수 생성 하는 객체
      * 1 ~ 9의 숫자만 사용해야 하며(0은 안된다.)
      * 각 자리수의 수들은 중복되지 않아야 한다. (123, 234는 되지만 333, 112는 안됨)

@@ -1,10 +1,8 @@
-package numberbaseball;
-
-import java.util.ArrayList;
+package numberbaseball.settings;
 
 public class GameSettings {
     /**
-     * numberbaseball/GameSettings.java
+     * numberbaseball.settings.GameSettings.java
      * 진행할 게임 난이도를 저장하고 관리하는 클래스
      */
     private int difficulty;

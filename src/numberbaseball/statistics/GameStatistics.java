@@ -1,17 +1,17 @@
-package numberbaseball;
+package numberbaseball.statistics;
 
 import java.util.ArrayList;
 
 public class GameStatistics {
     /**
-     * numberbaseball/GameStatistics.java
+     * numberbaseball.statistics.GameStatistics.java
      * 게임 시도별 횟수, 난이도의 통계를 기록하고 관리하는 클래스
      */
     private final ArrayList<Integer> tryCount;
     private final ArrayList<Integer> tryDifficulty;
 
 
-    GameStatistics() {
+    public GameStatistics() {
         tryCount = new ArrayList<>();
         tryDifficulty = new ArrayList<>();
     }

@@ -1,19 +1,20 @@
-package numberbaseball;
+package numberbaseball.gameplay;
 
 import numberbaseball.exceptions.DecimalFormatException;
 import numberbaseball.exceptions.DoubleInputException;
+import numberbaseball.input.InputInvalidCheck;
+import numberbaseball.statistics.GameStatistics;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class GameMenu {
     /**
-     * numberbaseball/GameMenu.java
+     * numberbaseball.gameplay.GameMenu.java
      * 안내문구로 메뉴리스트를 띄우고 사용자로부터 숫자 입력을 받아
      * 번호에 해당하는 메뉴 실행하는 클래스
      */
-    PlayBaseball playGame;
+    private PlayBaseball playGame;
 
     // 입력 타입에 따른 enum
     enum InputMenuType {
