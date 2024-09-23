@@ -1,6 +1,5 @@
 package numberbaseball;
 
-import numberbaseball.exceptions.UnsupportedDifficultyException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,11 +51,7 @@ public class PlayBaseball {
         return statistics;
     }
 
-    public void setGameDifficulty(int difficulty) throws UnsupportedDifficultyException {
-        if (difficulty < 3 || difficulty > 5) {
-            throw new UnsupportedDifficultyException();
-        }
-
+    public void setGameDifficulty(int difficulty) {
         settings.setDifficulty(difficulty);
     }
     public int getGameDifficulty() {
