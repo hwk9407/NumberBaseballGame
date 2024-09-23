@@ -7,6 +7,7 @@ import numberbaseball.settings.GenerateAnswer;
 import numberbaseball.statistics.GameStatistics;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class PlayBaseball {
     /**
@@ -23,7 +24,7 @@ public class PlayBaseball {
         this.statistics = new GameStatistics();
     }
 
-    public void execute() {
+    public void execute(Scanner sc) {
         Conversation conversation = new Conversation();
         GenerateAnswer correctAnswer = new GenerateAnswer(settings.getDifficulty());
         AnswerCheck answerCheck = new AnswerCheck(correctAnswer);
@@ -36,7 +37,7 @@ public class PlayBaseball {
         while (true) {
 
             // 사용자 입력받기 실행
-            List<Integer> userAnswer = conversation.inputNumber(settings.getDifficulty());
+            List<Integer> userAnswer = conversation.inputNumber(sc, settings.getDifficulty());
             answerCheck.checkSBO(userAnswer);
 
             // 결과 출력

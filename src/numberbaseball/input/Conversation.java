@@ -15,8 +15,7 @@ public class Conversation {
      */
 
 
-    public List<Integer> inputNumber(int difficulty) {
-        Scanner sc = new Scanner(System.in);
+    public List<Integer> inputNumber(Scanner sc, int difficulty) {
         List<Integer> userAnswer;
 
         while (true) {

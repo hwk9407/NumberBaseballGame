@@ -15,6 +15,7 @@ public class GameMenu {
      * 번호에 해당하는 메뉴 실행하는 클래스
      */
     private PlayBaseball playGame;
+    Scanner sc;
 
     // 입력 타입에 따른 enum
     enum InputMenuType {
@@ -34,11 +35,11 @@ public class GameMenu {
     // 생성자
     public GameMenu() {
         this.playGame = new PlayBaseball();
+        this.sc = new Scanner(System.in);
     }
 
 
     private int inputNumber(InputMenuType type) {
-        Scanner sc = new Scanner(System.in);
 
         while(true) {
             displayMenu(type);
@@ -81,7 +82,7 @@ public class GameMenu {
                 // 시작하기
             } else if (optionNumber == 1) {
                 System.out.println("< 숫자 야구 게임 > 을 시작하겠습니다.");
-                playGame.execute();
+                playGame.execute(sc);
                 // 게임 기록 보기
             } else if (optionNumber == 2) {
                 System.out.println("\n< 게임 기록 보기 >");
@@ -107,6 +108,9 @@ public class GameMenu {
                 System.out.println("없는 번호를 입력하였습니다.");
             }
         }
+
+        // System.in 입력 스트림 닫기
+        sc.close();
     }
 
     private void displayMenu(InputMenuType type) {
