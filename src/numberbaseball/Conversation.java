@@ -1,5 +1,8 @@
 package numberbaseball;
 
+import numberbaseball.exceptions.DecimalFormatException;
+import numberbaseball.exceptions.DoubleInputException;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,14 +19,18 @@ public class Conversation {
         Scanner sc = new Scanner(System.in);
         List<Integer> userAnswer;
 
-        System.out.println("서로 다른 " + difficulty + " 자리의 숫자를 입력해주세요.");
         while (true) {
+            System.out.println("서로 다른 " + difficulty + " 자리의 숫자를 입력해주세요.");
             String inputStr = sc.nextLine();
-            InputInvalidCheck inputcheck = new InputInvalidCheck();
+            InputInvalidCheck inputCheck = new InputInvalidCheck();
 
-            if (!inputStr.isEmpty() && inputcheck.checkInvalid(inputStr, difficulty)) { // 입력값 유효한지 검사
-                userAnswer = inputcheck.changeStrToList(inputStr);
-                break;
+            try {
+                if (!inputStr.isEmpty() && inputCheck.answerCheckInvalid(inputStr, difficulty)) { // 입력값 유효한지 검사
+                    userAnswer = inputCheck.changeStrToList(inputStr);
+                    break;
+                }
+            } catch (DecimalFormatException | DoubleInputException e) {
+                System.out.println(e.getMessage());
             }
         }
 

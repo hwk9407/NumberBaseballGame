@@ -1,7 +1,7 @@
 package numberbaseball;
 
-import numberbaseball.exceptions.InvalidNumberInputException;
-import numberbaseball.exceptions.UnsupportedDifficultyException;
+import numberbaseball.exceptions.DecimalFormatException;
+import numberbaseball.exceptions.DoubleInputException;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -15,54 +15,73 @@ public class GameMenu {
      */
     PlayBaseball playGame;
 
-    // 생성자
-    public GameMenu() {
-        this.playGame = new PlayBaseball();
-    }
-    private int inputNumber() throws InvalidNumberInputException {
-        Scanner sc = new Scanner(System.in);
+    // 입력 타입에 따른 enum
+    enum InputMenuType {
+        MAIN("잘못된 메뉴번호 입니다.", 0, 3),
+        DIFFICULTY("지원 하지 않는 난이도 입니다. 난이도는 3 ~ 5단계만 설정이 가능합니다.", 3, 5);
 
-        try {
-            return sc.nextInt();
-        } catch (InputMismatchException e) {
-            sc.next();
-            throw new InvalidNumberInputException();
+        String errorMessage;
+        int min, max;
+        InputMenuType(String errorMessage, int min, int max) {
+            this.errorMessage = errorMessage;
+            this.min = min;
+            this.max = max;
         }
 
     }
 
-    public void gameStart() {
-        while (true) {
-            displayMenu();
-            
-            int optionNumber;
+    // 생성자
+    public GameMenu() {
+        this.playGame = new PlayBaseball();
+    }
+
+
+    private int inputNumber(InputMenuType type) {
+        Scanner sc = new Scanner(System.in);
+
+        while(true) {
+            displayMenu(type);
+            String inputStr = sc.nextLine();
+            InputInvalidCheck inputCheck = new InputInvalidCheck();
 
             try {
-                optionNumber = inputNumber();
-            } catch (InvalidNumberInputException e) {
+                if (!inputCheck.isIntegerNumeric(inputStr, false)) {
+                    System.out.println("숫자가 아닙니다.");
+                    continue;
+                }
+            } catch (DecimalFormatException | DoubleInputException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
+            int inputNum = Integer.parseInt(inputStr);
+            if (type == InputMenuType.MAIN && (InputMenuType.MAIN.min > inputNum || InputMenuType.MAIN.max < inputNum)) {
+                System.out.println(InputMenuType.MAIN.errorMessage);
+                continue;
+            } else if (type == InputMenuType.DIFFICULTY && (InputMenuType.DIFFICULTY.min > inputNum || InputMenuType.DIFFICULTY.max < inputNum)) {
+                System.out.println(InputMenuType.DIFFICULTY.errorMessage);
+                continue;
+            }
+            return Integer.parseInt(inputStr);
+        }
+    }
 
+    public void gameStart() {
+        while (true) {
+
+            int optionNumber;
+
+            optionNumber = inputNumber(InputMenuType.MAIN);
 
             // 자리수 설정하기
             if (optionNumber == 0) {
-                while (true) {
-                    System.out.println("설정하고자 하는 자리수를 입력하세요.");
-                    try {
-                        int gameDifficulty = inputNumber();
-                        playGame.setGameDifficulty(gameDifficulty);
-                        System.out.println("게임 난이도를 " + gameDifficulty + "로 설정 하였습니다. \n");
-                        break;
-                    } catch (InvalidNumberInputException | UnsupportedDifficultyException e) { // 숫자 외 입력할 때 | 3 ~ 5 범위 외 난이도 설정하려 할 때 예외 처리
-                        System.out.println(e.getMessage());
-                    }
-                }
-            // 시작하기
+                int gameDifficulty = inputNumber(InputMenuType.DIFFICULTY);
+                playGame.setGameDifficulty(gameDifficulty);
+                System.out.println("게임 난이도를 " + gameDifficulty + "로 설정 하였습니다. \n");
+                // 시작하기
             } else if (optionNumber == 1) {
                 System.out.println("< 숫자 야구 게임 > 을 시작하겠습니다.");
                 playGame.execute();
-            // 게임 기록 보기
+                // 게임 기록 보기
             } else if (optionNumber == 2) {
                 System.out.println("\n< 게임 기록 보기 >");
 
@@ -70,7 +89,7 @@ public class GameMenu {
                 ArrayList<Integer> tryCount = statistics.getTryCount();
                 ArrayList<Integer> tryDifficulty = statistics.getTryDifficulty();
 
-                if (tryCount.size() == 0) {
+                if (tryCount.isEmpty()) {
                     System.out.println("기록 없음\n");
                     continue;
                 }
@@ -88,8 +107,14 @@ public class GameMenu {
             }
         }
     }
-    private void displayMenu() {
-        System.out.println("환영합니다! 원하시는 번호를 입력해주세요.");
-        System.out.println("0. 자리수 설정 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
+
+    private void displayMenu(InputMenuType type) {
+        if (type == InputMenuType.MAIN) {
+            System.out.println("환영합니다! 원하시는 번호를 입력해주세요.");
+            System.out.println("0. 자리수 설정 1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기");
+        } else if (type == InputMenuType.DIFFICULTY) {
+            System.out.println("설정하고자 하는 자리수를 입력하세요.");
+        }
     }
+
 }
