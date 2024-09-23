@@ -1,7 +1,9 @@
 package numberbaseball;
 
+import numberbaseball.exceptions.DecimalFormatException;
+import numberbaseball.exceptions.DoubleInputException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class InputInvalidCheck {
@@ -15,11 +17,33 @@ public class InputInvalidCheck {
      */
 
     // 순수 숫자만 있는지 검사하는 메서드
-    private boolean isNumeric(String answer) {
-        return Arrays.stream(answer.split("")).allMatch(s -> Character.isDigit(s.charAt(0)));
+    public boolean isIntegerNumeric(String str, boolean allowPrimeNumbers) throws DecimalFormatException, DoubleInputException {
+        //
+        if (str == null || str.isEmpty()) return false;
+
+        boolean pointFlag = false;
+        char[] c = str.toCharArray();
+
+        for (int i = 0; i < str.length(); i++) {
+            if (Character.isDigit(c[i])) continue;
+            else if (c[i] == '.') {
+                if (pointFlag || i == 0 || i == str.length() - 1) {
+                    throw new DecimalFormatException();
+                }
+                pointFlag = true;
+            } else {
+                return false;
+            }
+        }
+        if (pointFlag && !allowPrimeNumbers) {
+            throw new DoubleInputException();
+        }
+
+        return true;
+
     }
 
-    // 세 자리인지 검사하는 메서드
+    // n 자리인지 검사하는 메서드
     private boolean isValidDigit(String answer, int difficulty) {
         return answer.length() == difficulty;    // 길이가 n이면 true
     }
@@ -34,18 +58,18 @@ public class InputInvalidCheck {
         return answer.chars().count() == answer.chars().distinct().count();
     }
 
-    // 최종 검사 메서드
-    public boolean checkInvalid(String answer, int difficulty) {
-        if(!isNumeric(answer)) {
+    // 답안지 검사 메서드
+    public boolean answerCheckInvalid(String answer, int difficulty) throws DecimalFormatException, DoubleInputException {
+        if (!isIntegerNumeric(answer, false)) {
             System.out.println("숫자가 아닙니다.");
             return false;
-        } else if(!isValidDigit(answer, difficulty)) {
+        } else if (!isValidDigit(answer, difficulty)) {
             System.out.println(difficulty + " 개의 숫자를 입력해야 합니다.");
             return false;
-        } else if(!isContainZero(answer)) {
+        } else if (!isContainZero(answer)) {
             System.out.println("0이 아닌 1 ~ 9사이의 " + difficulty + " 개의 숫자가 필요합니다.");
             return false;
-        } else if(!isSameNumberByDigit(answer)) {
+        } else if (!isSameNumberByDigit(answer)) {
             System.out.println("중복 숫자를 허용하지 않습니다.");
             return false;
         } else {
