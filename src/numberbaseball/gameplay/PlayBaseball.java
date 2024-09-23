@@ -41,7 +41,7 @@ public class PlayBaseball {
             answerCheck.checkSBO(userAnswer);
 
             // 결과 출력
-            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut(), settings.getDifficulty());
+            conversation.sendResult(answerCheck.getScoreStrike(), answerCheck.getScoreBall(), answerCheck.getScoreOut(), settings.getDifficulty(), answerCheck.getScoreCount());
 
             // Strike n인 경우 정답이므로 탈출
             if (answerCheck.getScoreStrike() == settings.getDifficulty()) {

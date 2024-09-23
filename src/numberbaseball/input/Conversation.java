@@ -36,10 +36,10 @@ public class Conversation {
         return userAnswer;
     }
 
-    public void sendResult(int strike, int ball, int out, int difficulty) {
+    public void sendResult(int strike, int ball, int out, int difficulty, int count) {
         StringBuilder scoreString = new StringBuilder();
         if (strike == difficulty) {
-            scoreString.append("정답입니다!");
+            scoreString.append("정답입니다! " + difficulty + "단계 난이도를 " + count + "회 만에 맞추셨습니다.");
         } else if (out == difficulty) {
             scoreString.setLength(0);
             scoreString.append("아웃");
