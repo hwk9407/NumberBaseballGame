@@ -80,7 +80,10 @@ public class GameMenu {
                 playGame.setGameDifficulty(gameDifficulty);
                 System.out.println("게임 난이도를 " + gameDifficulty + "로 설정 하였습니다. \n");
                 // 시작하기
-            } else if (optionNumber == 1) {
+                optionNumber = 1;
+            }
+
+            if (optionNumber == 1) {
                 System.out.println("< 숫자 야구 게임 > 을 시작하겠습니다.");
                 playGame.execute(sc);
                 // 게임 기록 보기
