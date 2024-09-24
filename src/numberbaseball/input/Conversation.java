@@ -2,6 +2,7 @@ package numberbaseball.input;
 
 import numberbaseball.exceptions.DecimalFormatException;
 import numberbaseball.exceptions.DoubleInputException;
+import numberbaseball.exceptions.NotNumericException;
 
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class Conversation {
                     userAnswer = inputCheck.changeStrToList(inputStr);
                     break;
                 }
-            } catch (DecimalFormatException | DoubleInputException e) {
+            } catch (DecimalFormatException | DoubleInputException | NotNumericException e) {
                 System.out.println(e.getMessage());
             }
         }

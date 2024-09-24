@@ -2,6 +2,7 @@ package numberbaseball.input;
 
 import numberbaseball.exceptions.DecimalFormatException;
 import numberbaseball.exceptions.DoubleInputException;
+import numberbaseball.exceptions.NotNumericException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,9 @@ public class InputInvalidCheck {
      */
 
     // 순수 숫자만 있는지 검사하는 메서드
-    public boolean isIntegerNumeric(String str, boolean allowPrimeNumbers) throws DecimalFormatException, DoubleInputException {
+    public void isIntegerNumeric(String str, boolean allowPrimeNumbers) throws DecimalFormatException, DoubleInputException, NotNumericException {
         //
-        if (str == null || str.isEmpty()) return false;
+        if (str == null || str.isEmpty()) throw new NotNumericException();
 
         boolean pointFlag = false;
         char[] c = str.toCharArray();
@@ -32,15 +33,12 @@ public class InputInvalidCheck {
                 }
                 pointFlag = true;
             } else {
-                return false;
+                throw new NotNumericException();
             }
         }
         if (pointFlag && !allowPrimeNumbers) {
             throw new DoubleInputException();
         }
-
-        return true;
-
     }
 
     // n 자리인지 검사하는 메서드
@@ -59,11 +57,10 @@ public class InputInvalidCheck {
     }
 
     // 답안지 검사 메서드
-    public boolean answerCheckInvalid(String answer, int difficulty) throws DecimalFormatException, DoubleInputException {
-        if (!isIntegerNumeric(answer, false)) {
-            System.out.println("숫자가 아닙니다.");
-            return false;
-        } else if (!isValidDigit(answer, difficulty)) {
+    public boolean answerCheckInvalid(String answer, int difficulty) throws DecimalFormatException, DoubleInputException, NotNumericException {
+        isIntegerNumeric(answer, false);
+
+        if (!isValidDigit(answer, difficulty)) {
             System.out.println(difficulty + " 개의 숫자를 입력해야 합니다.");
             return false;
         } else if (!isContainZero(answer)) {

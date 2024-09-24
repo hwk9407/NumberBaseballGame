@@ -2,6 +2,8 @@ package numberbaseball.gameplay;
 
 import numberbaseball.exceptions.DecimalFormatException;
 import numberbaseball.exceptions.DoubleInputException;
+import numberbaseball.exceptions.NotNumericException;
+import numberbaseball.exceptions.UnsupportedDifficultyException;
 import numberbaseball.input.InputInvalidCheck;
 import numberbaseball.statistics.GameStatistics;
 
@@ -47,11 +49,8 @@ public class GameMenu {
             InputInvalidCheck inputCheck = new InputInvalidCheck();
 
             try {
-                if (!inputCheck.isIntegerNumeric(inputStr, false)) {
-                    System.out.println("숫자가 아닙니다.");
-                    continue;
-                }
-            } catch (DecimalFormatException | DoubleInputException e) {
+                inputCheck.isIntegerNumeric(inputStr, false);
+            } catch (DecimalFormatException | DoubleInputException | NotNumericException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
@@ -61,6 +60,12 @@ public class GameMenu {
                 continue;
             } else if (type == InputMenuType.DIFFICULTY && (InputMenuType.DIFFICULTY.min > inputNum || InputMenuType.DIFFICULTY.max < inputNum)) {
                 System.out.println(InputMenuType.DIFFICULTY.errorMessage);
+                // 지원하지 않는 난이도 설정 시 예외 처리
+                try {
+                    throw new UnsupportedDifficultyException(InputMenuType.DIFFICULTY.min, InputMenuType.DIFFICULTY.max);
+                } catch (UnsupportedDifficultyException e) {
+                    System.out.println(e.getMessage());
+                }
                 continue;
             }
             return Integer.parseInt(inputStr);
